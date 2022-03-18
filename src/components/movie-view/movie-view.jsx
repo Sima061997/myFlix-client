@@ -1,6 +1,5 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-
 export class MovieView extends React.Component {
  
 
@@ -28,7 +27,11 @@ export class MovieView extends React.Component {
          <div className="movie-director">
          <span className="label">Director: </span>
           <span className="value">{movie.Director.Name}</span>
+          <span className="value">{movie.Director.Bio}</span>
+          <span className="value">{movie.Director.Birth}</span>
           </div>
+          <button type="back" onClick={() => {
+            onBackClick(null);}} >Back</button>
           </div>
      );     
   }
@@ -46,8 +49,7 @@ MovieView.propTypes = {
     Director: PropTypes.shape({
       Name: PropTypes.string.isRequired,
       Bio: PropTypes.string.isRequired,
-      Birth: PropTypes.number.isRequired
+      Birth: PropTypes.string.isRequired
     }).isRequired
-    
   }).isRequired 
 };

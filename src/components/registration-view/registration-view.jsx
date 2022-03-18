@@ -1,8 +1,5 @@
 import React, { useState } from "react";
 import PropTypes from 'prop-types';
-
-import { LoginView } from "../login-view/login-view";
- 
 export function RegistrationView(props) {
     //useState method is called and assigned to destructured variables
     
@@ -11,13 +8,15 @@ export function RegistrationView(props) {
     const [email, setEmail] = useState("");
     const [dateOfBirth, setDateOfBirth] = useState("");
 
+    /* Sends a request to the server for authentication */
     const handleSubmit = (e) => {
       e.preventDefault();
       console.log(username, password, email, dateOfBirth);
-      /* Send a request to the server for authentication */
-      /* then call props.onLoggedIn(username) */
-       props.onRegistration(username);
+      /*onRegistration called from main-view  */
+      props.onRegistration(username);
+      
     };
+    
 
     return (
         <form>
@@ -41,5 +40,8 @@ export function RegistrationView(props) {
           <button type="submit" onClick={ handleSubmit }>Submit</button>
       </form>   
     );
+  }
 
+  RegistrationView.propTypes = {
+    onRegistration: PropTypes.func.isRequired
   }

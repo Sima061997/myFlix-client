@@ -45,32 +45,33 @@ export class MainView extends React.Component {
     render() {
         const {movies, selectedMovie, user } = this.state;
         
-        /* If there is no user, the LoginView is rendered. If there is a user logged in, the user details are *passed as a prop to the LoginView*/
-        if (!user) return( <div> <RegistrationView onRegistration={user => this.onRegistration(user)} />
-          <LoginView onLoggedIn={user => this.onLoggedIn(user)} />
-         
-         </div>
-        );
+        /* If there is no user, the RegistrationView and LoginView is rendered. If there is a user logged in, the user details are *passed as a prop to the LoginView*/
+          if (!user) return( <div>
+            <RegistrationView onRegistration={user => this.onRegistration(user)} />
+          <LoginView onLoggedIn={user => this.onLoggedIn(user)}/>
+          </div>
+          );
+        
          
         // Before the movies have been loaded
-        //if (movies.length === 0) return <div className="main-view"></div>;
+        if (movies.length === 0) return <div className="main-view"></div>;
 
           /*If the state of `selectedMovie` is not null, that selected movie will be returned otherwise, all *movies will be returned*/ 
 
           return (
             <div className="main-view">
-            {selectedMovie
-          ? <MovieView movie={selectedMovie} onBackClick={newSelectedMovie => { this.setSelectedMovie(newSelectedMovie); }}/>
-          : movies.map(movie => (
+            {(selectedMovie) ?
+            <MovieView movie={selectedMovie} onBackClick={newSelectedMovie => { this.setSelectedMovie(newSelectedMovie); }}/>
+            : movies.map(movie => (
             <MovieCard key={movie._id} movie={movie} onMovieClick={(movie) => { this.setSelectedMovie(movie) }}/>
           ))
-        }
+           }
+        
             </div>
           );    
         }
     
     }
-    MainView.PropTypes = {
-      
+    MainView.propTypes = {
     };
-    export default MainView;
+    
