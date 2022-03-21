@@ -1,7 +1,13 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
+import Container from 'react-bootstrap/Container';
 
 import { MainView } from './components/main-view/main-view';
+import { NavigationBar } from './components/navigation-bar/navigation-bar';
+
+import '@fortawesome/fontawesome-free/css/all.min.css';
+import 'bootstrap-css-only/css/bootstrap.min.css';
+import 'mdbreact/dist/css/mdb.css';
 
 import './index.scss';
 
@@ -9,7 +15,12 @@ import './index.scss';
 class MyFlixApplication extends React.Component {
   render() {
     return (
-      <MainView />
+      <div>
+      < NavigationBar />
+      <Container>
+      <MainView/>
+      </Container>
+      </div>
     );
   }
 }

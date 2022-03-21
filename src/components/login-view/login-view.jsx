@@ -1,5 +1,6 @@
 import React, { useState } from "react";
-import PropTypes from 'prop-types';
+import PropTypes from "prop-types";
+import { Container, Form, Button, Card, CardGroup } from "react-bootstrap";
 export function LoginView(props) {
   //useState method is called and assigned to destructured variables
   const [username, setUsername] = useState("");
@@ -9,30 +10,41 @@ export function LoginView(props) {
   const handleSubmit = (e) => {
     e.preventDefault();
     console.log(username, password);
-    
-    /*onLoggedIn called from main-view */
-     props.onLoggedIn(username);
-  };
 
+    /*onLoggedIn called from main-view */
+    props.onLoggedIn(username);
+  };
   return (
-      <form>
-        <p>Do you have already an Account?</p>
-          <label>
-              Username:
-              <input type="text" value={username} onChange={e => setUsername(e.target.value)} />
-          </label>
-          <label >
-              Password: 
-              <input type="password" value={password} onChange={e => setPassword(e.target.value)} />
-          </label>
-          <button type="submit" onClick={ handleSubmit }>Submit</button> 
-          <br /> 
-          <br />
-          <button type="button">Login without Registraton</button>
-      </form>
+    <Container>
+    <CardGroup>
+    <Card>
+      <Card.Header>Please Login</Card.Header>
+      <Form>
+        <Form.Group controlId="formUsername">
+          <Form.Label>Username:</Form.Label>
+          <Form.Control
+            type="text"
+            onChange={(e) => setUsername(e.target.value)}
+          />
+        </Form.Group>
+
+        <Form.Group controlId="formPassword">
+          <Form.Label>Password:</Form.Label>
+          <Form.Control
+            type="password"
+            onChange={(e) => setPassword(e.target.value)}
+          />
+        </Form.Group>
+        <Button variant="primary" type="submit" onClick={handleSubmit}>
+          Submit
+        </Button>
+      </Form>
+    </Card>
+    </CardGroup>
+    </Container>
   );
 }
 
 LoginView.propTypes = {
-  onLoggedIn: PropTypes.func.isRequired
-}
+  onLoggedIn: PropTypes.func.isRequired,
+};

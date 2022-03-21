@@ -1,11 +1,14 @@
 import React from 'react';
 import axios from 'axios';
 import PropTypes from 'prop-types';
+import Row from 'react-bootstrap/Row';
+import Col from 'react-bootstrap/Col';
 
 import { LoginView } from '../login-view/login-view';
 import { RegistrationView } from '../registration-view/registration-view';
 import { MovieCard } from '../movie-card/movie-card';
 import { MovieView } from '../movie-view/movie-view';
+import { NavigationBar } from '../navigation-bar/navigation-bar'
 
 export class MainView extends React.Component {
     constructor(){
@@ -13,6 +16,7 @@ export class MainView extends React.Component {
         this.state = {
          movies : [],
           selectedMovie: null,
+          newUser: null,
           user: null
         };
     }
@@ -34,8 +38,8 @@ export class MainView extends React.Component {
         });
       }
 
-    onRegistration(user) { 
-      this.setState({user}); 
+    onRegistration(newUser) { 
+      this.setState({newUser}); 
     }
     
     onLoggedIn(user) {
@@ -43,31 +47,34 @@ export class MainView extends React.Component {
       }
 
     render() {
-        const {movies, selectedMovie, user } = this.state;
-        
+        const {movies, selectedMovie, newUser, user } = this.state;
+
         /* If there is no user, the RegistrationView and LoginView is rendered. If there is a user logged in, the user details are *passed as a prop to the LoginView*/
-          if (!user) return( <div>
-            <RegistrationView onRegistration={user => this.onRegistration(user)} />
+        if(!newUser) return(
+          <RegistrationView onRegistration={newUser => this.onRegistration(newUser)}/>
+        );
+          if (!user) return (
           <LoginView onLoggedIn={user => this.onLoggedIn(user)}/>
-          </div>
           );
-        
-         
         // Before the movies have been loaded
         if (movies.length === 0) return <div className="main-view"></div>;
 
           /*If the state of `selectedMovie` is not null, that selected movie will be returned otherwise, all *movies will be returned*/ 
 
           return (
-            <div className="main-view">
-            {(selectedMovie) ?
+            <Row className="main-view justify-content-md-center">
+            {(selectedMovie) ? (
+              <Col md={8}>
             <MovieView movie={selectedMovie} onBackClick={newSelectedMovie => { this.setSelectedMovie(newSelectedMovie); }}/>
+            </Col>
+            )
             : movies.map(movie => (
-            <MovieCard key={movie._id} movie={movie} onMovieClick={(movie) => { this.setSelectedMovie(movie) }}/>
-          ))
+                <Col md={3}>
+                <MovieCard key={movie._id} movie={movie} onMovieClick={(movie) => { this.setSelectedMovie(movie) }}/>
+                </Col>
+              )) 
            }
-        
-            </div>
+            </Row>
           );    
         }
     
