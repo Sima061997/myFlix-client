@@ -1,6 +1,8 @@
 import React, { useState } from "react";
 import PropTypes from "prop-types";
 import { Container, Form, Button, Card, CardGroup } from "react-bootstrap";
+
+import "./login-view.scss"
 export function LoginView(props) {
   //useState method is called and assigned to destructured variables
   const [username, setUsername] = useState("");
@@ -17,7 +19,7 @@ export function LoginView(props) {
   return (
     <Container>
     <CardGroup>
-    <Card>
+    <Card id="login">
       <Card.Header>Please Login</Card.Header>
       <Form>
         <Form.Group controlId="formUsername">

@@ -1,6 +1,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import {Button, Card} from 'react-bootstrap';
+
+import './movie-view.jsx';
 export class MovieView extends React.Component {
  
 
@@ -8,7 +10,7 @@ export class MovieView extends React.Component {
     const { movie, onBackClick } = this.props;
 
     return (
-      <div className="movie-view">
+      <Card className="movie-view">
         <div className="movie-poster">
           <img src= {movie.ImageURL} alt= "image" crossOrigin="true" />
         </div>
@@ -31,9 +33,9 @@ export class MovieView extends React.Component {
           <span className="value">{movie.Director.Bio}</span>
           <span className="value">{movie.Director.Birth}</span>
           </div>
-          <button type="back" onClick={() => {
-            onBackClick(null);}} >Back</button>
-          </div>
+          <Button type="back" onClick={() => {
+            onBackClick(null);}} >Back</Button>
+          </Card>
      );     
   }
 }

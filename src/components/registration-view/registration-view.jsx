@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import PropTypes from "prop-types";
 import { Form, Button, Container, Card, Row, Col, CardGroup } from "react-bootstrap";
 
+import './registration-view.scss';
 export function RegistrationView(props) {
   //useState method is called and assigned to destructured variables
 
@@ -23,7 +24,7 @@ export function RegistrationView(props) {
       <Row>
         <Col>
           <CardGroup>
-            <Card>
+            <Card id="registration">
               <Card.Header>Please Register</Card.Header>
               <Form>
                 <Form.Group>

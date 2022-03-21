@@ -5,10 +5,6 @@ import Container from 'react-bootstrap/Container';
 import { MainView } from './components/main-view/main-view';
 import { NavigationBar } from './components/navigation-bar/navigation-bar';
 
-import '@fortawesome/fontawesome-free/css/all.min.css';
-import 'bootstrap-css-only/css/bootstrap.min.css';
-import 'mdbreact/dist/css/mdb.css';
-
 import './index.scss';
 
 //Main component (will eventually use all the others)
