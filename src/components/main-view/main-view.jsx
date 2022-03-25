@@ -21,15 +21,13 @@ export class MainView extends React.Component {
         };
     }
     componentDidMount() {
-      axios.get('https://secret-falls-20485.herokuapp.com/movies')
-        .then(response => {
-          this.setState({
-            movies: response.data
-          });
-        })
-        .catch(error => {
-          console.log(error);
-        });
+      let accessToken = localStorage.getItem('token');
+  if (accessToken !== null) {
+    this.setState({
+      user: localStorage.getItem('user')
+    });
+    this.getMovies(accessToken);
+  }
     }
     
     setSelectedMovie(newSelectedMovie) {
@@ -42,8 +40,30 @@ export class MainView extends React.Component {
       this.setState({newUser}); 
     }
     
-    onLoggedIn(user) {
-        this.setState({user});
+    onLoggedIn(authData) {
+      console.log(authData);
+        this.setState({
+          user: authData.user.Name
+        });
+
+        localStorage.setItem("token", authData.token);
+        localStorage.setItem("user", authData.user.Name);
+        this.getMovies(authData.token);
+      }
+
+      getMovies(token) {
+        axios.get("https://secret-falls-20485.herokuapp.com/movies", {
+          headers: { Authorization: `Bearer ${token}`}
+        })
+        .then(response => {
+           // Assign the result to the state
+           this.setState({
+             movies: response.data
+           });
+        })
+        .catch(function (error) {
+         console.log(error);
+        });
       }
 
     render() {

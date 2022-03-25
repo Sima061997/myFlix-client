@@ -2,7 +2,8 @@ import React, { useState } from "react";
 import PropTypes from "prop-types";
 import { Container, Form, Button, Card, CardGroup } from "react-bootstrap";
 
-import "./login-view.scss"
+import axios from "axios";
+import "./login-view.scss";
 export function LoginView(props) {
   //useState method is called and assigned to destructured variables
   const [username, setUsername] = useState("");
@@ -11,11 +12,22 @@ export function LoginView(props) {
   /* Send a request to the server for authentication */
   const handleSubmit = (e) => {
     e.preventDefault();
-    console.log(username, password);
 
-    /*onLoggedIn called from main-view */
-    props.onLoggedIn(username);
+    console.log(username, password);
+   /* Send a request to the server for authentication */
+     axios.post("https://secret-falls-20485.herokuapp.com/login", {
+       Name: username,
+       Password: password
+     })
+     .then(response => {
+       const data = response.data;
+       props.onLoggedIn(data);
+     })
+     .catch(e => {
+       console.log("no such user");
+     })
   };
+  
   return (
     <Container>
     <CardGroup>
