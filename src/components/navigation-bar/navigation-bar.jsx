@@ -9,8 +9,8 @@ import {
   FormControl,
   Button,
 } from "react-bootstrap";
-import "./navigation-bar.scss";
 
+import "./navigation-bar.scss";
 import { logo } from "./logo";
 
 export class NavigationBar extends React.Component {
@@ -56,6 +56,7 @@ export class NavigationBar extends React.Component {
               <Button variant="outline-dark" bg="secondary" className="p-2 m-1" id="button">Search</Button>
             </Form>
           </Navbar.Collapse>
+          <Button variant="outline-dark" bg="info" onClick={() => { this.onLoggedOut() }}>Logout</Button>
         </Container>
       </Navbar>
     );

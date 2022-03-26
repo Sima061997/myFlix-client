@@ -4,19 +4,28 @@ import Container from 'react-bootstrap/Container';
 
 import { MainView } from './components/main-view/main-view';
 import { NavigationBar } from './components/navigation-bar/navigation-bar';
+import { LoginView } from './components/login-view/login-view';
 
+import {
+  BrowserRouter as Router, 
+  Routes, 
+  Route
+} from 'react-router-dom';
 import './index.scss';
 
 //Main component (will eventually use all the others)
 class MyFlixApplication extends React.Component {
   render() {
     return (
-      <div>
-      < NavigationBar />
-      <Container>
-      <MainView/>
-      </Container>
-      </div>
+      <React.StrictMode>
+        <Router>
+        <NavigationBar/>
+          <Routes>
+          <Route path="/" element={<MainView/>}></Route>
+          <Route path="/login" element={<LoginView/>}></Route>
+          </Routes>
+      </Router>
+      </React.StrictMode>
     );
   }
 }

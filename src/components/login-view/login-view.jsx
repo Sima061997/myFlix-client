@@ -5,6 +5,7 @@ import { Container, Form, Button, Card, CardGroup } from "react-bootstrap";
 import axios from "axios";
 import "./login-view.scss";
 export function LoginView(props) {
+  console.log(props);
   //useState method is called and assigned to destructured variables
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
@@ -21,10 +22,11 @@ export function LoginView(props) {
      })
      .then(response => {
        const data = response.data;
+       console.log(data);
        props.onLoggedIn(data);
      })
      .catch(e => {
-       console.log("no such user");
+       console.log("no such user", e);
      })
   };
   
@@ -60,5 +62,9 @@ export function LoginView(props) {
 }
 
 LoginView.propTypes = {
+  user:  PropTypes.shape({
+    Name: PropTypes.string.isRequired,
+    Password: PropTypes.string.isRequired,
+  }),
   onLoggedIn: PropTypes.func.isRequired,
 };

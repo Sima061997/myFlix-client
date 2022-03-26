@@ -1,8 +1,7 @@
 import React from 'react';
 import axios from 'axios';
 import PropTypes from 'prop-types';
-import Row from 'react-bootstrap/Row';
-import Col from 'react-bootstrap/Col';
+import {Row, Col, Button} from 'react-bootstrap';
 
 import { LoginView } from '../login-view/login-view';
 import { RegistrationView } from '../registration-view/registration-view';
@@ -51,6 +50,16 @@ export class MainView extends React.Component {
         this.getMovies(authData.token);
       }
 
+      onLoggedOut() {
+        localStorage.removeItem('token');
+        localStorage.removeItem('user');
+        console.log(localStorage.removeItem('user'));
+        
+        this.setState({
+          user: null
+        });
+      }
+
       getMovies(token) {
         axios.get("https://secret-falls-20485.herokuapp.com/movies", {
           headers: { Authorization: `Bearer ${token}`}
@@ -70,12 +79,13 @@ export class MainView extends React.Component {
         const {movies, selectedMovie, newUser, user } = this.state;
 
         /* If there is no user, the RegistrationView and LoginView is rendered. If there is a user logged in, the user details are *passed as a prop to the LoginView*/
-        if(!newUser) return(
-          <RegistrationView onRegistration={newUser => this.onRegistration(newUser)}/>
+        if (!newUser) return ( 
+        <RegistrationView onRegistration={newUser => this.onRegistration(newUser)}/>
         );
-          if (!user) return (
+        if (!user) return (
           <LoginView onLoggedIn={user => this.onLoggedIn(user)}/>
           );
+         
         // Before the movies have been loaded
         if (movies.length === 0) return <div className="main-view"></div>;
 
@@ -101,4 +111,3 @@ export class MainView extends React.Component {
     }
     MainView.propTypes = {
     };
-    
