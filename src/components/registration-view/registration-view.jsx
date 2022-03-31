@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import PropTypes from "prop-types";
 import { Link } from "react-router-dom";
+
 import {
   Form,
   Button,
@@ -11,10 +12,9 @@ import {
 
 import axios from "axios";
 import "./registration-view.scss";
-import { LoginView } from "../login-view/login-view";
+export function RegistrationView() {
 
-export function RegistrationView(props) {
-  //useState method is called and assigned to destructured variables
+  //useState method called and assigned to destructured variables
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [email, setEmail] = useState("");
@@ -22,11 +22,12 @@ export function RegistrationView(props) {
   // useState method for called and assigned to for Error variables
   const [usernameErr, setUsernameErr] = useState("");
   const [passwordErr, setPasswordErr] = useState("");
-  const [emailErr, setemailErr] = useState("");
+  const [emailErr, setEmailErr] = useState("");
 
   // validate user inputs
   const validate = () => {
     let isReq = true;
+
     if (!username) {
       setUsernameErr("Username Required");
       isReq = false;
@@ -44,19 +45,17 @@ export function RegistrationView(props) {
     }
 
     if (!email) {
-      setemailErr("Email Required");
+      setEmailErr("Email Required");
       isReq = false;
     } else if (email.indexOf("@") === -1) {
-      setemailErr("Invalid Email");
+      setEmailErr("Invalid Email");
       isReq = false;
     }
     return isReq;
   };
-  /* Sends a request to the server for authentication */
+  // Sends a request to the server for authentication 
   const handleSubmit = (e) => {
     e.preventDefault();
-    console.log(username, password, email, dateOfBirth);
-
     const isReq = validate();
     if (isReq) {
       axios.post("https://secret-falls-20485.herokuapp.com/users", {
@@ -68,14 +67,14 @@ export function RegistrationView(props) {
         .then((response) => {
           const data = response.data;
           console.log(data);
-          props.onRegistration(data);
+         // props.onRegistration(data);
           //alert("Registration Successful, please login!");
           //the second argument "_self" is necessary so that the page will open in the current tab
-          //window.open("", "_self");
+          window.open("/", "_self");
         })
-        .catch(response => {
-          console.error(response);
-          alert("unable to register");
+        .catch((e) => {
+         console.log("unable to register");
+         //alert("unable to register");
         });
     }
   };
@@ -108,7 +107,7 @@ export function RegistrationView(props) {
                   {passwordErr && <p>{passwordErr}</p>}
                 </Form.Group>
 
-                <Form.Group controlId="Email" className="reg-form-inputs">
+                <Form.Group controlId="Email" className="reg-form-inputs" required>
                   <Form.Label>EmailAddress:</Form.Label>
                   <Form.Control
                     type="email"
@@ -123,7 +122,7 @@ export function RegistrationView(props) {
                   <Form.Label> DateOfBirth:</Form.Label>
                   <Form.Control
                     type="date"
-                    placeholder="DD/MM/YY"
+                    placeholder="DD-MM-YY"
                     value={dateOfBirth}
                     onChange={(e) => setDateOfBirth(e.target.value)}
                   />
@@ -131,9 +130,8 @@ export function RegistrationView(props) {
 
                 <Button variant="primary" type="submit" onClick={handleSubmit}>
                   Submit
-                </Button>
-              <p></p>
-                 <Link to="/login">sign in</Link> 
+                </Button> 
+                <p onClick={() =>  window.open("/", "_self")}>Sign In</p>
               </Form>
         </Col>
       </Row>
@@ -148,3 +146,4 @@ RegistrationView.propTypes = {
     Email: PropTypes.string.isRequired,
   }),
 };
+

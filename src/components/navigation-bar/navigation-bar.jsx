@@ -3,62 +3,59 @@ import React from "react";
 import {
   Navbar,
   Container,
-  Nav,
-  NavDropdown,
-  Form,
-  FormControl,
-  Button,
+  Nav
 } from "react-bootstrap";
 
 import "./navigation-bar.scss";
 import { logo } from "./logo";
+export function NavigationBar ({user}) {
 
-export class NavigationBar extends React.Component {
-  render() {
+  const onLoggedOut = () => {   
+    localStorage.clear();
+    window.open("/", "_self"); 
+  }
+
+  const isAuth = () => {
+    if(typeof window == "undefined"){
+      return false;
+    }
+    if(localStorage.getItem("token")) {
+      return localStorage.getItem("token");
+    } else {
+      return false;
+    }
+  }
+        
     return (
-      <Navbar bg="primary" expand="lg" >
+      <Navbar bg="primary" expand="lg">
         <Container className="d-flex">
-          <Navbar.Brand href="#"className="pl-2">
+          <Navbar.Brand href="#" className="pl-2">
             <img src={logo} alt="logo" id="logo-image" />
           </Navbar.Brand>
-          <Navbar.Toggle aria-controls="navbarScroll" />
+          <Navbar.Toggle aria-controls="navbarScroll" /> 
           <Navbar.Collapse id="navbarScroll">
-            <Nav  
+            <Nav
               className="mr-auto p-2"
               style={{ maxHeight: "100px" }}
-              navbarScroll
             >
-              <Nav.Link href="#home">HOME</Nav.Link>
-              <Nav.Link href="#popular">POPULAR</Nav.Link>
-              <NavDropdown title="COLLECTIONS" id="navbarScrollingDropdown">
-                <NavDropdown.Header>GENRE</NavDropdown.Header>
-                <NavDropdown.Divider />
-                <NavDropdown.Item href="#action1"> Biographical romantic drama</NavDropdown.Item>
-                <NavDropdown.Item href="#action2"> Historical drama</NavDropdown.Item>
-                <NavDropdown.Item href="#action3">Fantasy</NavDropdown.Item>
-                <NavDropdown.Item href="#action4">Animation</NavDropdown.Item>
-                <NavDropdown.Item href="#action5">Science Fiction</NavDropdown.Item>
-                <NavDropdown.Item href="#action6">Comedy drama</NavDropdown.Item>
-                <NavDropdown.Item href="#action7">Drama</NavDropdown.Item>
-                <NavDropdown.Item href="#action8">Psychological thriller</NavDropdown.Item>
-                <NavDropdown.Divider />
-                <NavDropdown.Item href="#action9">Something else here</NavDropdown.Item>
-              </NavDropdown>
-            </Nav>
+              <Nav.Link md={3} href="#home">HOME</Nav.Link>
+              <Nav.Link md={3} href="#popular">Profile</Nav.Link>
+              { !isAuth() && (
+            <Nav.Link  md={3} href={`/user/${user}`} >{user}</Nav.Link>
+            )}
+              { !isAuth() && (
+            <Nav.Link  md={3} href="/register" > Signup</Nav.Link>
+            )}
+            { !isAuth() && (
+            <Nav.Link  md={3} href="/" > Login</Nav.Link>
+            )}
+            { isAuth() && (
+              <Nav.Link md={3}  onClick={() => {onLoggedOut() }}>Logout</Nav.Link>
+              )}
             
-            <Form className="d-flex p-2" >
-              <FormControl
-                type="search"
-                placeholder="Search"
-                aria-label="Search"
-                className="p-2"
-              />
-              <Button variant="outline-dark" bg="secondary" className="p-2 m-1" id="button">Search</Button>
-            </Form>
+            </Nav>
           </Navbar.Collapse>
-          <Button variant="outline-dark" bg="info" onClick={() => { this.onLoggedOut() }}>Logout</Button>
         </Container>
       </Navbar>
     );
-  }
 }

@@ -1,13 +1,16 @@
 body {
   background-color: #d19c9c;
 }
+body {
+  background-color: #4E4E4E;
+}
 #login {
   background-color: #d3d6d3;
 }
+
 #registration {
   background-color: #d3d6d3;
 }
-
 #logo-image {
   width: 75px;
 }

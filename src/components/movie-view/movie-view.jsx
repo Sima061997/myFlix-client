@@ -1,11 +1,11 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import {Button, Card} from 'react-bootstrap';
+import { Link } from "react-router-dom";
 
-import './movie-view.jsx';
+import './movie-view.scss';
 export class MovieView extends React.Component {
  
-
   render() {
     const { movie, onBackClick } = this.props;
 
@@ -22,17 +22,26 @@ export class MovieView extends React.Component {
           <span className="label">Description: </span>
           <span className="value">{movie.Description}</span>
         </div>
+
          <div className="movie-genre">
+         <p></p>
          <span className="label">Genre: </span>
-          <span className="value">{movie.Genre.Name}</span>
-          
+          <span className="value">{movie.Genre.Name}</span> 
+          <Link to={`/genres/${movie.Genre.Name}`}>
+  <Button variant="link">More about Genre</Button>
+</Link>     
          </div>
+         
          <div className="movie-director">
+           <p></p>
          <span className="label">Director: </span>
           <span className="value">{movie.Director.Name}</span>
-          <span className="value">{movie.Director.Bio}</span>
-          <span className="value">{movie.Director.Birth}</span>
+          <Link to={`/directors/${movie.Director.Name}`}>
+  <Button variant="link">More about Director</Button>
+</Link>
+
           </div>
+        
           <Button type="back" onClick={() => {
             onBackClick(null);}} >Back</Button>
           </Card>
@@ -40,7 +49,7 @@ export class MovieView extends React.Component {
   }
 }
 
-MovieView.propTypes = {
+MovieView.propTypes = { 
   movie: PropTypes.shape({
     Title: PropTypes.string.isRequired,
     Description: PropTypes.string.isRequired,
@@ -56,3 +65,4 @@ MovieView.propTypes = {
     }).isRequired
   }).isRequired 
 };
+
