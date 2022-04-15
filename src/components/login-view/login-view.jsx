@@ -5,7 +5,6 @@ import { Container, Form, Button, Card, CardGroup } from "react-bootstrap";
 import axios from "axios";
 import "./login-view.scss";
  export function LoginView(props) {
-   
   //useState method is called and assigned to destructured variables
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");

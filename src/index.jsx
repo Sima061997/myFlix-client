@@ -1,21 +1,16 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import Container from 'react-bootstrap/Container';
-
 import { MainView } from './components/main-view/main-view';
 
-import {
-  Container
-} from 'react-bootstrap';
 import './index.scss';
 
 //Main component (will eventually use all the others)
 class MyFlixApplication extends React.Component {
   render() {
     return (
-      <Container>
+      <div className="container-fluid-pr-0-pl-0" >
         <MainView/>
-        </Container> 
+        </div> 
     );
   }
 }

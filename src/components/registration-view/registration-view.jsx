@@ -2,18 +2,11 @@ import React, { useState } from "react";
 import PropTypes from "prop-types";
 import { Link } from "react-router-dom";
 
-import {
-  Form,
-  Button,
-  Container,
-  Row,
-  Col
-} from "react-bootstrap";
+import { Form, Button, Container, Row, Col } from "react-bootstrap";
 
 import axios from "axios";
 import "./registration-view.scss";
 export function RegistrationView() {
-
   //useState method called and assigned to destructured variables
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
@@ -40,7 +33,7 @@ export function RegistrationView() {
       setPasswordErr("Password Required");
       isReq = false;
     } else if (password.length < 5) {
-      setUsernameErr("Password must be more than 5 characters");
+      setPasswordErr("Password must be more than 5 characters");
       isReq = false;
     }
 
@@ -53,12 +46,14 @@ export function RegistrationView() {
     }
     return isReq;
   };
-  // Sends a request to the server for authentication 
+  // Sends a request to the server for authentication
   const handleSubmit = (e) => {
     e.preventDefault();
     const isReq = validate();
+    
     if (isReq) {
-      axios.post("https://secret-falls-20485.herokuapp.com/users", {
+      axios
+        .post("https://secret-falls-20485.herokuapp.com/users", {
           Name: username,
           Password: password,
           Email: email,
@@ -67,14 +62,14 @@ export function RegistrationView() {
         .then((response) => {
           const data = response.data;
           console.log(data);
-         // props.onRegistration(data);
-          //alert("Registration Successful, please login!");
+         
+          alert("Registration Successful, please login!");
           //the second argument "_self" is necessary so that the page will open in the current tab
           window.open("/", "_self");
         })
         .catch((e) => {
-         console.log("unable to register");
-         //alert("unable to register");
+          console.log(e);
+        alert("unable to register");
         });
     }
   };
@@ -82,57 +77,57 @@ export function RegistrationView() {
     <Container>
       <Row className="mt-5">
         <Col md={12}>
-              <Form>
-              <h3>Please Register</h3>
-              <p></p>
-                <Form.Group controlId="formName" className="reg-form-inputs">
-                  <Form.Label>Username:</Form.Label>
-                  <Form.Control
-                    type="text"
-                    placeholder="Username"
-                    value={username}
-                    onChange={e => setUsername(e.target.value)}
-                  />
-                  {usernameErr && <p>{usernameErr}</p>}
-                </Form.Group>
+          <Form>
+            <h3>Please Register</h3>
+            <p></p>
+            <Form.Group controlId="formName" className="reg-form-inputs">
+              <Form.Label>Username:</Form.Label>
+              <Form.Control
+                type="text"
+                placeholder="Username"
+                value={username}
+                onChange={(e) => setUsername(e.target.value)}
+              />
+              {usernameErr && <p>{usernameErr}</p>}
+            </Form.Group>
 
-                <Form.Group controlId="formPassword" className="reg-form-inputs">
-                  <Form.Label> Password:</Form.Label>
-                  <Form.Control
-                    type="password"
-                    placeholder="Password"
-                    value={password}
-                    onChange={e => setPassword(e.target.value)}
-                  />
-                  {passwordErr && <p>{passwordErr}</p>}
-                </Form.Group>
+            <Form.Group controlId="formPassword" className="reg-form-inputs">
+              <Form.Label> Password:</Form.Label>
+              <Form.Control
+                type="password"
+                placeholder="Password"
+                value={password}
+                onChange={(e) => setPassword(e.target.value)}
+              />
+              {passwordErr && <p>{passwordErr}</p>}
+            </Form.Group>
 
-                <Form.Group controlId="Email" className="reg-form-inputs" required>
-                  <Form.Label>EmailAddress:</Form.Label>
-                  <Form.Control
-                    type="email"
-                    placeholder=" Email Address"
-                    value={email}
-                    onChange={e => setEmail(e.target.value)}
-                  />
-                  {emailErr && <p>{emailErr}</p>}
-                </Form.Group>
+            <Form.Group controlId="Email" className="reg-form-inputs" required>
+              <Form.Label>EmailAddress:</Form.Label>
+              <Form.Control
+                type="email"
+                placeholder=" Email Address"
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
+              />
+              {emailErr && <p>{emailErr}</p>}
+            </Form.Group>
 
-                <Form.Group controlId="updateBirthday">
-                  <Form.Label> DateOfBirth:</Form.Label>
-                  <Form.Control
-                    type="date"
-                    placeholder="DD-MM-YY"
-                    value={dateOfBirth}
-                    onChange={(e) => setDateOfBirth(e.target.value)}
-                  />
-                </Form.Group>
+            <Form.Group controlId="updateBirthday">
+              <Form.Label> DateOfBirth:</Form.Label>
+              <Form.Control
+                type="date"
+                placeholder="DD-MM-YY"
+                value={dateOfBirth}
+                onChange={(e) => setDateOfBirth(e.target.value)}
+              />
+            </Form.Group>
 
-                <Button variant="primary" type="submit" onClick={handleSubmit}>
-                  Submit
-                </Button> 
-                <p onClick={() =>  window.open("/", "_self")}>Sign In</p>
-              </Form>
+            <Button variant="primary" type="submit" onClick={handleSubmit}>
+              Submit
+            </Button>
+            <p onClick={() => window.open("/", "_self")}>Sign In</p>
+          </Form>
         </Col>
       </Row>
     </Container>
@@ -146,4 +141,3 @@ RegistrationView.propTypes = {
     Email: PropTypes.string.isRequired,
   }),
 };
-
