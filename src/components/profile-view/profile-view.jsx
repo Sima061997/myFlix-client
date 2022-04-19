@@ -24,8 +24,9 @@ export class ProfileView extends React.Component {
       this.getUserInfo(accessToken);
     }
   }
-/*
+
   getUserInfo = (token) => {
+    // console.log("getuserInfo Updated");
     const Name = localStorage.getItem("user");
     axios
       .get(`https://secret-falls-20485.herokuapp.com/users/${Name}`, {
@@ -43,7 +44,7 @@ export class ProfileView extends React.Component {
         console.log(error);
       });
   };
-*/
+
   onDeregister = () => {
     const Name = localStorage.getItem("user");
     const token = localStorage.getItem("token");
@@ -85,7 +86,7 @@ export class ProfileView extends React.Component {
         console.log(response.data);
         this.setState({
           Name: response.data.updatedUser.Name,
-          
+          Password: response.data.updatedUser.Password,
           Email: response.data.updatedUser.Email,
           Birthday: response.data.updatedUser.Birthday,
         });
@@ -116,6 +117,7 @@ export class ProfileView extends React.Component {
   };
 
   render() {
+    // console.log("ProfileView rendered");
     const { Name, Password, Email, Birthday, FavoriteMovies } = this.state;
     const { movies, onBackClick } = this.props;
 
@@ -123,7 +125,7 @@ export class ProfileView extends React.Component {
       <Container id="profile-view-pv" className="d-flex align-items-center">
         <Row className="mt-5">
           <Col md={12}>
-            <Card id="profile-view">
+            <Card id="profile">
               <Card.Body id="card-body-pv">
                 <Card.Title id="username-pv">Name: </Card.Title>
                 <Card.Text className="value">{Name}</Card.Text>
@@ -170,53 +172,50 @@ export class ProfileView extends React.Component {
                       })}
                   </Card>
                 </div>
-                <Button onClick={this.onDeregister}>Delete Account</Button>
-              </Card.Body>
-            </Card>
-            <Card>
-              <Form>
-                <h3>Update the User Details</h3>
-                <p></p>
-                <Form.Group controlId="userName">
-                  <Form.Label>Name: </Form.Label>
-                  <Form.Control type="text" placeholder={Name} />
-                </Form.Group>
+                  <Form>                   
+                    <h3>Update the User Details</h3>
+                    <p></p>
+                    <Form.Group controlId="userName">
+                      <Form.Label>Name: </Form.Label>
+                      <Form.Control type="text" placeholder={Name} />
+                    </Form.Group>
 
-                <Form.Group controlId="userPassword">
-                  <Form.Label>Password: </Form.Label>
-                  <Form.Control type="text"  />
-                </Form.Group>
+                    <Form.Group controlId="userPassword">
+                      <Form.Label>Password: </Form.Label>
+                      <Form.Control type="text" />
+                    </Form.Group>
 
-                <Form.Group controlId="userEmail">
-                  <Form.Label>Email Address: </Form.Label>
-                  <Form.Control type="Email" placeholder={Email} />
-                </Form.Group>
+                    <Form.Group controlId="userEmail">
+                      <Form.Label>Email Address: </Form.Label>
+                      <Form.Control type="Email" placeholder={Email} />
+                    </Form.Group>
 
-                <Form.Group controlId="userBirthday">
-                  <Form.Label>Birthday: </Form.Label>
-                  <Form.Control type="text" placeholder="DD-MM-YY" />
-                </Form.Group>
-                <Button onClick={this.updateUserInfo}> Submit </Button>
-              </Form>
-
-              <Card.Footer>
-                <Button
-                  type="back"
-                  onClick={() => {
-                    onBackClick(null);
-                  }}
-                >
-                  Back
-                </Button>
-              </Card.Footer>
-            </Card>
+                    <Form.Group controlId="userBirthday">
+                      <Form.Label>Birthday: </Form.Label>
+                      <Form.Control type="text" placeholder="DD-MM-YY" />
+                    </Form.Group>
+                    <Button onClick={this.updateUserInfo}> Submit </Button>
+                  </Form>
+                  </Card.Body>
+                  <Card.Footer>
+                  <Button onClick={this.onDeregister}>Delete Account</Button>
+                    <Button
+                      type="back"
+                      onClick={() => {
+                        onBackClick(null);
+                      }}
+                    >
+                      Back
+                    </Button>
+                  </Card.Footer>
+                </Card>
           </Col>
         </Row>
       </Container>
     );
   }
 }
-/*
+
 ProfileView.propTypes = {
   profile: PropTypes.shape({
     Name: PropTypes.string.isRequired,
@@ -226,4 +225,3 @@ ProfileView.propTypes = {
     FavoriteMovies: PropTypes.array.isRequired,
   }),
 };
-*/

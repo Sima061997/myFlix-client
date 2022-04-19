@@ -18,14 +18,14 @@ export class MainView extends React.Component {
         super();
         this.state = {
          movies : [],
-         newUser: null,
-          user: null
+          user: null,
+          newUser: null
         };
     }
 
     componentDidMount() {
       let accessToken = localStorage.getItem('token');
-  if (accessToken !== null && this._isMounted === true) {
+  if (accessToken !== null) {
     this.setState({
       user: localStorage.getItem('user')
     });
@@ -58,8 +58,9 @@ export class MainView extends React.Component {
         localStorage.setItem("user", authData.user.Name);
         this.getMovies(authData.token);
       }
-
+      
     render() {
+      console.log("rendered");
         const { movies, user } = this.state; 
           return (
             <Router>
@@ -111,9 +112,10 @@ export class MainView extends React.Component {
 
 <Route path={`/users/${user}`} render={({history}) => {
 if (!user) return <Redirect to="/" />
-return <Col>
+return( <Col>
 <ProfileView movies={movies} user={user} onBackClick={() => history.goBack()} />
 </Col>
+)
 }} />
             </Row>
   </Container>          
