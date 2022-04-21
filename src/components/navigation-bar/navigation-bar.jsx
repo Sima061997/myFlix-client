@@ -25,7 +25,7 @@ export function NavigationBar(props) {
   };
 
   return (
-    <Navbar bg="primary" expand="lg">
+    <Navbar className="navi-bar">
       <Navbar.Brand href="#" className="image p-0 m-0">
         <img
           src={logo}
@@ -38,51 +38,55 @@ export function NavigationBar(props) {
 
       <Navbar.Toggle aria-controls="navbarScroll" />
       <Navbar.Collapse id="navbarScroll">
-        <Nav style={{ maxHeight: "100px" }} className="d-flex bd-highlight">
+        <Nav style={{ maxHeight: "100px" }} className="container-fluid">
+
+          <Nav.Item className="me-auto p-2 bd-highlight">
           {isAuth() && (
-            <Nav.Link md={3} href="/" className="me-auto p-2 bd-highlight">
+            <Nav.Link md={3} href="/">
               HOME
             </Nav.Link>
           )}
+          </Nav.Item>
+
+          <Nav.Item className="me-auto p-2 bd-highlight">
           {isAuth() && (
             <Nav.Link
               md={3}
               href={`/users/${user}`}
-              className="me-auto p-2 bd-highlight"
             >
               PROFILE
             </Nav.Link>
           )}
+          </Nav.Item>
 
-          {!isAuth() && (
-            <Nav.Link md={3} href="/register" className="p-2 bd-highlight">
-              {" "}
-              Sign in
-            </Nav.Link>
-          )}
-          {!isAuth() && (
-            <Nav.Link md={3} href="/" className="p-2 bd-highlight">
-              {" "}
-              Login
-            </Nav.Link>
-          )}
-          {isAuth() && (
-            <Nav.Link md={3} href="/deregister" className="p-2 bd-highlight">
-              {" "}
-              Sign out
-            </Nav.Link>
-          )}
-          {isAuth() && (
-            <Nav.Link
-              md={3}
-              onClick={() => {
-                onLoggedOut();
-              }}
-              className="float-end"
-            >
-              Logout
-            </Nav.Link>
-          )}
+<Nav.Item className="p-2 bd-highlight">
+        {!isAuth() && (
+              <Nav.Link md={3} href="/register" > 
+                Sign in
+              </Nav.Link>
+            )}
+        </Nav.Item >
+            
+            <Nav.Item className="p-2 bd-highlight">
+            {!isAuth() && (
+              <Nav.Link md={3} href="/" >
+                Login
+              </Nav.Link>
+            )}
+            </Nav.Item>
+
+<Nav.Item className="p-2 bd-highlight ml-auto">
+{isAuth() && (
+              <Nav.Link
+                md={3}
+                onClick={() => {
+                  onLoggedOut();
+                }}
+              >
+                Logout
+              </Nav.Link>
+            )}
+</Nav.Item>        
         </Nav>
       </Navbar.Collapse>
     </Navbar>

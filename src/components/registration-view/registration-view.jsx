@@ -1,7 +1,5 @@
 import React, { useState } from "react";
 import PropTypes from "prop-types";
-import { Link } from "react-router-dom";
-
 import { Form, Button, Container, Row, Col } from "react-bootstrap";
 
 import axios from "axios";
@@ -50,7 +48,7 @@ export function RegistrationView() {
   const handleSubmit = (e) => {
     e.preventDefault();
     const isReq = validate();
-    
+
     if (isReq) {
       axios
         .post("https://secret-falls-20485.herokuapp.com/users", {
@@ -62,14 +60,14 @@ export function RegistrationView() {
         .then((response) => {
           const data = response.data;
           console.log(data);
-         
+
           alert("Registration Successful, please login!");
           //the second argument "_self" is necessary so that the page will open in the current tab
           window.open("/", "_self");
         })
         .catch((e) => {
           console.log(e);
-        alert("unable to register");
+          alert("unable to register");
         });
     }
   };

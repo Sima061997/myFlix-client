@@ -1,0 +1,18 @@
+.movie-card {
+    margin-bottom: 15px;
+    position: relative;
+    overflow:hidden;
+    text-overflow: ellipsis;
+    width: 100%;
+    img:hover {
+        height: 400px;
+        display: block;
+        margin: auto;
+        opacity: 0.5;
+       cursor: pointer;
+    }
+    card-title {
+        text-overflow: ellipsis;
+        margin: auto; 
+    }
+}

@@ -33,7 +33,7 @@ import "./login-view.scss";
     return isReq;
   };
 
-  // Send a request to the server for authentication 
+  //this function logins in an app on click of submit button  
   const handleSubmit = (e) => {
     e.preventDefault();
     console.log(username, password);
@@ -45,7 +45,7 @@ import "./login-view.scss";
           Password: password,
         })
         .then((response) => {
-          //server responds with an acceptance an JWT issued
+          //server responds with an acceptance of JWT issued
           const data = response.data;
           props.onLoggedIn(data);
         })

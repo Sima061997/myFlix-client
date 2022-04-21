@@ -2,6 +2,7 @@ import React from "react";
 import PropTypes from "prop-types";
 import { Container, Card, Button, Row, Col } from "react-bootstrap";
 import { MovieCard } from "../movie-card/movie-card";
+
 export class GenreView extends React.Component {
   render() {
     const {movies, genre, onBackClick } = this.props;

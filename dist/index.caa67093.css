@@ -1,6 +1,24 @@
 
-body {
-  background-color: #4E4E4E;
+.movie-card {
+  margin-bottom: 15px;
+  position: relative;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  width: 100%;
+}
+.movie-card img:hover {
+  height: 400px;
+  display: block;
+  margin: auto;
+  opacity: 0.5;
+  cursor: pointer;
+}
+.movie-card card-title {
+  text-overflow: ellipsis;
+  margin: auto;
+}
+.value {
+  margin-bottom: 0;
 }
 #login {
   background-color: #d3d6d3;
@@ -13,4 +31,28 @@ body {
   width: 75px;
 }
 
+.navi-bar {
+  background-color: #35974d;
+}
+.fav-movies {
+  margin-bottom: 15px;
+}
+.fav-movies figure {
+  position: relative;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  margin: auto;
+  width: 100%;
+}
+.fav-movies figure img {
+  height: 400px;
+  display: block;
+}
+.fav-movies figure caption {
+  text-align: center;
+}
+.fav-movies button.btn {
+  display: block;
+  margin: auto;
+}
 /*# sourceMappingURL=index.caa67093.css.map */
