@@ -1,11 +1,17 @@
 import React from "react";
-import { BrowserRouter as Router, Route, Redirect } from "react-router-dom";
 import axios from "axios";
+import { connect } from 'react-redux';
+
+import { BrowserRouter as Router, Route, Redirect } from "react-router-dom";
 import PropTypes from "prop-types";
 import { Container, Row, Col } from "react-bootstrap";
+
+import { setMovies, setUser } from "../../actions/actions";
+import MoviesList from '../movies-list/movies-list';
+
 import { NavigationBar } from "../navigation-bar/navigation-bar";
 import { LoginView } from "../login-view/login-view";
-import { MovieCard } from "../movie-card/movie-card";
+//import { MovieCard } from "../movie-card/movie-card";
 import { RegistrationView } from "../registration-view/registration-view";
 import { MovieView } from "../movie-view/movie-view";
 import { GenreView } from "../genre-view/genre-view";
@@ -13,22 +19,15 @@ import { DirectorView } from "../director-view/director-view";
 import { ProfileView } from "../profile-view/profile-view";
 
 import "./main-view.scss";
+import { bindActionCreators } from "redux";
 export class MainView extends React.Component {
   constructor() {
     super();
-    this.state = {
-      movies: [],
-      user: null,
-      newUser: null,
-    };
   }
 
   componentDidMount() {
     let accessToken = localStorage.getItem("token");
-    if (accessToken !== null) {
-      this.setState({
-        user: localStorage.getItem("user"),
-      });
+    if(accessToken !== null) {
       this.getMovies(accessToken);
     }
   }
@@ -39,29 +38,25 @@ export class MainView extends React.Component {
         headers: { Authorization: `Bearer ${token}` },
       })
       .then((response) => {
-        // Assign the result to the state
-        this.setState({
-          movies: response.data,
-        });
+        this.props.setMovies(response.data);
       })
       .catch(function (error) {
         console.log(error);
       });
   }
-// this function authenticates the user from API
+// this function authenticates the user from API and sets the user Name and token to localStorage
   onLoggedIn(authData) {
     console.log(authData);
-    this.setState({
-      user: authData.user.Name,
-    });
+    this.props.setUser(authData.user.Name);
+
 //sets the name and token of user on localStorage
     localStorage.setItem("token", authData.token);
     localStorage.setItem("user", authData.user.Name);
-    this.getMovies(authData.token);
+    //this.getMovies(authData.token);
   }
 
   render() {
-    const { movies, user, newUser } = this.state;
+    const { movies, user } = this.props;
     return (
       <Router>
         <NavigationBar user={user} />
@@ -81,11 +76,7 @@ export class MainView extends React.Component {
                     </Col>
                   );
                 if (movies.length === 0) return <div className="main-view" />;
-                return movies.map((m) => (
-                  <Col md={3} key={m._id} className="col-hover-overlay-zoom">
-                    <MovieCard movie={m} />
-                  </Col>
-                ));
+                return <MoviesList movies={movies} />; 
               }}
             />
 
@@ -184,10 +175,21 @@ export class MainView extends React.Component {
   }
 }
 
+let mapStateToProps = state => {
+  return { 
+    movies: state.movies,
+    user: state.user
+   }
+}
+
+function mapDispatchToProps(dispatch) {
+  return bindActionCreators({setMovies, setUser}, dispatch);
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(MainView);
+
+
 MainView.propTypes = {
-  state: PropTypes.shape({
     user: PropTypes.string.isRequired,
-    newUser: PropTypes.string.isRequired,
-    movies: PropTypes.array.isRequired,
-  }),
+    movies: PropTypes.array.isRequired
 };

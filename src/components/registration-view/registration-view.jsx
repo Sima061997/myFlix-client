@@ -10,6 +10,7 @@ export function RegistrationView() {
   const [password, setPassword] = useState("");
   const [email, setEmail] = useState("");
   const [dateOfBirth, setDateOfBirth] = useState("");
+  
   // useState method for called and assigned to for Error variables
   const [usernameErr, setUsernameErr] = useState("");
   const [passwordErr, setPasswordErr] = useState("");

@@ -4,7 +4,8 @@ import { Container, Form, Button, Card, CardGroup } from "react-bootstrap";
 
 import axios from "axios";
 import "./login-view.scss";
- export function LoginView(props) {
+
+ export function LoginView({ onLoggedIn }) { 
   //useState method is called and assigned to destructured variables
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
@@ -47,7 +48,7 @@ import "./login-view.scss";
         .then((response) => {
           //server responds with an acceptance of JWT issued
           const data = response.data;
-          props.onLoggedIn(data);
+          onLoggedIn(data);
         })
         .catch(e => {
           console.log("no such user", e);
@@ -91,6 +92,8 @@ import "./login-view.scss";
     </Container>
   );
   }
+
+
 LoginView.propTypes = {
   user: PropTypes.shape({
     Name: PropTypes.string.isRequired,

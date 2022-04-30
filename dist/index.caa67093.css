@@ -1,4 +1,21 @@
 
+.value {
+  margin-bottom: 0;
+}
+#login {
+  background-color: #d3d6d3;
+}
+
+#registration {
+  background-color: #d3d6d3;
+}
+#logo-image {
+  width: 75px;
+}
+
+.navi-bar {
+  background-color: #35974d;
+}
 .movie-card {
   margin-bottom: 15px;
   position: relative;
@@ -16,23 +33,6 @@
 .movie-card card-title {
   text-overflow: ellipsis;
   margin: auto;
-}
-.value {
-  margin-bottom: 0;
-}
-#login {
-  background-color: #d3d6d3;
-}
-
-#registration {
-  background-color: #d3d6d3;
-}
-#logo-image {
-  width: 75px;
-}
-
-.navi-bar {
-  background-color: #35974d;
 }
 .fav-movies {
   margin-bottom: 15px;
