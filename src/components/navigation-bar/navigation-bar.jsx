@@ -1,5 +1,5 @@
 import React from "react";
-import { Navbar, Container, Nav, Row, Col } from "react-bootstrap";
+import { Navbar, Nav } from "react-bootstrap";
 
 import "./navigation-bar.scss";
 import { logo } from "./logo";

@@ -10,41 +10,31 @@ import {
   Figure,
 } from "react-bootstrap";
 import { Link } from "react-router-dom";
+import { getUserInfo, updateUserInfo, favoriteMovies } from "../../actions/actions";
 
 import "./profile-view.scss";
 import axios from "axios";
-export class ProfileView extends React.Component {
-  constructor() {
-    super();
-    this.state = {
-      Name: null,
-      Password: null,
-      Email: null,
-      Birthday: null,
-      FavoriteMovies: [],
-    };
-  }
-
+import { connect } from "react-redux";
+ class ProfileView extends React.Component {
   componentDidMount() {
     let accessToken = localStorage.getItem("token");
     if (accessToken !== null) {
-      this.getUserInfo(accessToken);
+      this.userDetails(accessToken);
     }
   }
+
 //gives the Details about the user from API
-  getUserInfo = (token) => { 
+  userDetails = () => { 
+    const token = localStorage.getItem("token");
     const Name = localStorage.getItem("user");
     axios
       .get(`https://secret-falls-20485.herokuapp.com/users/${Name}`, {
         headers: { Authorization: `Bearer ${token}` },
       })
       .then((response) => {
-        this.setState({
-          Name: response.data.Name,
-          Email: response.data.Email,
-          Birthday: response.data.Birthday,
-          FavoriteMovies: response.data.FavoriteMovies,
-        });
+        console.log(response.data);
+       this.props.getUserInfo(response.data);
+       this.props.favoriteMovies(response.data.FavoriteMovies);
       })
       .catch(function (error) {
         console.log(error);
@@ -68,19 +58,20 @@ export class ProfileView extends React.Component {
         console.log(error);
       });
   };
+  
 //updates the details of the user
   updateUserInfo = () => {
     const Name = localStorage.getItem("user");
     const token = localStorage.getItem("token");
-    console.log(token);
+    const { updateInfo } = this.props; 
     axios
       .put(
         `https://secret-falls-20485.herokuapp.com/users/${Name}`,
         {
-          Name: this.state.Name,
-          Password: this.state.Password,
-          Email: this.state.Email,
-          Birthday: this.state.Birthday,
+          Name: updateInfo.Name,
+          Password: updateInfo.Password,
+          Email: updateInfo.Email,
+          Birthday: updateInfo.Birthday,
         },
         {
           headers: { Authorization: `Bearer ${token}` },
@@ -89,13 +80,8 @@ export class ProfileView extends React.Component {
       .then((response) => {
         alert("Save Changes");
         console.log(response.data);
+        this.props.updateUserInfo(response.data);
 
-        this.setState({
-          Name: response.data.updatedUser.Name,
-          Password: response.data.updatedUser.Password,
-          Email: response.data.updatedUser.Email,
-          Birthday: response.data.updatedUser.Birthday,
-        });
         const updatedName = response.data.updatedUser.Name;
         localStorage.setItem("user", updatedName);
         window.open(`/users/${updatedName}`, "_self");
@@ -104,22 +90,24 @@ export class ProfileView extends React.Component {
         console.log(error);
       });
   };
+  
 //sets the new user Name given by user
   setName(value) {
-    this.state.Name = value;
+    this.props.updateInfo.Name = value;
   }
 //sets the new Password given by user
   setPassword(value) {
-    this.state.Password = value;
+    this.props.updateInfo.Password = value;
   }
 //sets the new Email given by user
   setEmail(value) {
-    this.state.Email = value;
+    this.props.updateInfo.Email = value;
   }
 //sets the new Birthday given by user 
   setBirthday(value) {
-    this.state.Birthday = value;
+    this.props.updateInfo.Birthday = value;
   }
+
 //removes the movie from the favorite movies list of the user
   removeFavoriteMovies = (_id) => {
     const Name = localStorage.getItem("user");
@@ -131,7 +119,7 @@ export class ProfileView extends React.Component {
         { headers: { Authorization: `Bearer ${token}` } }
       )
       .then((e) => {
-        alert(" movie removed from favorite List");
+        alert(" movie removed from user's favorite List");
         window.open(`/users/${Name}`, "_self");
       })
       .catch((error) => {
@@ -140,9 +128,8 @@ export class ProfileView extends React.Component {
   };
 
   render() {
-    const { Name, Password, Email, Birthday, FavoriteMovies } = this.state;
-    const { movies, onBackClick } = this.props;
-
+    const { movies, userInfo, FavoriteMovies,  onBackClick } = this.props;
+    
     return (
       <Container id="profile-view-pv">
         <Row>
@@ -151,16 +138,13 @@ export class ProfileView extends React.Component {
               <h3>User Profile </h3>
               <Card.Body id="card-body-pv">
                 <Card.Title id="username-pv">Name: </Card.Title>
-                <Card.Text className="value">{Name}</Card.Text>
-
-                <Card.Title id="password-dv">Password: </Card.Title>
-                <Card.Text className="value">{Password}</Card.Text>
+                <Card.Text className="value">{userInfo.Name}</Card.Text>
 
                 <Card.Title id="email-dv">E-mail: </Card.Title>
-                <Card.Text className="value">{Email}</Card.Text>
+                <Card.Text className="value">{userInfo.Email}</Card.Text>
 
                 <Card.Title id="birth-year-dv">Birthday: </Card.Title>
-                <Card.Text className="value">{Birthday}</Card.Text>
+                <Card.Text className="value">{userInfo.Birthday}</Card.Text>
               </Card.Body>
             </Card>
           </Col>
@@ -217,7 +201,6 @@ export class ProfileView extends React.Component {
             <h4>FavoriteMovies: </h4>
           </Col>
         </Row>
-
         <Row>
           {FavoriteMovies.length === 0 && (
             <div className="text-center">No Favorite Movies Yet</div>
@@ -257,6 +240,7 @@ export class ProfileView extends React.Component {
               }
             })}
         </Row>
+        
         <Row>
           <Button className="mr-1" onClick={this.onDeregister}>
             Delete Account
@@ -276,6 +260,17 @@ export class ProfileView extends React.Component {
   }
 }
 
+let mapStateToProps = state => {
+  return { 
+    userInfo: state.userInfo,
+    updateInfo: state.updateInfo,
+    FavoriteMovies: state.FavoriteMovies
+   }
+}
+
+export default connect(mapStateToProps, {getUserInfo, updateUserInfo, favoriteMovies})(ProfileView);
+
+
 ProfileView.propTypes = {
   profile: PropTypes.shape({
     Name: PropTypes.string.isRequired,
@@ -285,3 +280,6 @@ ProfileView.propTypes = {
     FavoriteMovies: PropTypes.array.isRequired,
   }),
 };
+
+ 
+
