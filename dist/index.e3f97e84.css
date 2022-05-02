@@ -1,0 +1,68 @@
+.movie-card {
+  text-overflow: ellipsis;
+  width: 100%;
+  margin-bottom: 15px;
+  position: relative;
+  overflow: hidden;
+}
+
+.movie-card img:hover {
+  height: 400px;
+  opacity: .5;
+  cursor: pointer;
+  margin: auto;
+  display: block;
+}
+
+.movie-card card-title {
+  text-overflow: ellipsis;
+  margin: auto;
+}
+
+#logo-image {
+  width: 75px;
+}
+
+.navi-bar {
+  background-color: #35974d;
+}
+
+#login {
+  background-color: #d3d6d3;
+}
+
+#registration {
+  background-color: #d3d6d3;
+}
+
+.value {
+  margin-bottom: 0;
+}
+
+.fav-movies {
+  margin-bottom: 15px;
+}
+
+.fav-movies figure {
+  text-overflow: ellipsis;
+  width: 100%;
+  margin: auto;
+  position: relative;
+  overflow: hidden;
+}
+
+.fav-movies figure img {
+  height: 400px;
+  display: block;
+}
+
+.fav-movies figure caption {
+  text-align: center;
+}
+
+.fav-movies button.btn {
+  margin: auto;
+  display: block;
+}
+
+/*# sourceMappingURL=index.e3f97e84.css.map */
