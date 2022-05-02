@@ -5,7 +5,8 @@
   "source": "src/index.html",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "build": "parcel build"
+    "build": "./node_modules/.bin/parcel build"
+    
   },
   "repository": {
     "type": "git",
