@@ -1,24 +1,24 @@
+/* eslint-disable require-jsdoc */
 import React from 'react';
 import ReactDOM from 'react-dom';
-import { createStore } from 'redux';
-import { Provider } from 'react-redux';
-import  moviesApp  from './reducers/reducers';
-import { devToolsEnhancer } from 'redux-devtools-extension';
+import {createStore} from 'redux';
+import {Provider} from 'react-redux';
+import moviesApp from './reducers/reducers';
+import {devToolsEnhancer} from 'redux-devtools-extension';
 
-import  MainView  from './components/main-view/main-view';
-import './index.scss';
+import MainView from './components/main-view/main-view';
 
 const store = createStore(moviesApp, devToolsEnhancer());
 
-//Main component (will eventually use all the others)
+// Main component (will eventually use all the others)
 class MyFlixApplication extends React.Component {
   render() {
     return (
       <Provider store={store}>
-      <div className="container-fluid-pr-0-pl-0" >
-        <MainView/>
+        <div className="container-fluid-pr-0-pl-0" >
+          <MainView/>
         </div>
-        </Provider> 
+      </Provider>
     );
   }
 }

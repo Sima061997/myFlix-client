@@ -19,7 +19,6 @@ import {GenreView} from '../genre-view/genre-view';
 import {DirectorView} from '../director-view/director-view';
 import ProfileView from '../profile-view/profile-view';
 
-import './main-view.scss';
 import {bindActionCreators} from 'redux';
 export class MainView extends React.Component {
   componentDidMount() {
@@ -55,7 +54,6 @@ export class MainView extends React.Component {
     this.getMovies(authData.token);
   }
 
-  // eslint-disable-next-line require-jsdoc
   render() {
     const {movies, user} = this.props;
     return (
@@ -192,6 +190,6 @@ function mapDispatchToProps(dispatch) {
 export default connect(mapStateToProps, mapDispatchToProps)(MainView);
 
 MainView.propTypes = {
-  user: PropTypes.string.isRequired,
+  user: PropTypes.string,
   movies: PropTypes.array.isRequired,
 };
