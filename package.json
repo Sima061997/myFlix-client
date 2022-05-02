@@ -37,10 +37,5 @@
     "eslint-config-google": "^0.14.0",
     "eslint-plugin-react": "^7.29.4",
     "parcel": "^2.5.0"
-  },
-  "alias": {
-    "process": {
-      "global": "{}"
-    }
   }
 }
