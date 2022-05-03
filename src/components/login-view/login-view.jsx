@@ -1,10 +1,12 @@
 /* eslint-disable require-jsdoc */
+
 import React, {useState} from 'react';
 import PropTypes from 'prop-types';
 import {Container, Form, Button, Card, CardGroup} from 'react-bootstrap';
 
 import axios from 'axios';
 import './login-view.scss';
+
 
 // eslint-disable-next-line react/prop-types
 export function LoginView({onLoggedIn}) {
@@ -50,7 +52,6 @@ export function LoginView({onLoggedIn}) {
           .then((response) => {
           // server responds with an acceptance of JWT issued
             const data = response.data;
-            // eslint-disable-next-line react/prop-types
             onLoggedIn(data);
           })
           .catch((e) => {

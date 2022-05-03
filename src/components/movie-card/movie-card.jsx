@@ -1,12 +1,14 @@
-import React from "react";
-import PropTypes from "prop-types";
-import { Button, Card } from "react-bootstrap";
+/* eslint-disable react/prop-types */
+/* eslint-disable require-jsdoc */
+import React from 'react';
+import PropTypes from 'prop-types';
+import {Button, Card} from 'react-bootstrap';
 
-import { Link } from "react-router-dom";
-import "./movie-card.scss";
+import {Link} from 'react-router-dom';
+import './movie-card.scss';
 export class MovieCard extends React.Component {
   render() {
-    const { movie } = this.props;
+    const {movie} = this.props;
     return (
       <Card className="movie-card ">
         <Card.Img

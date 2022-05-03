@@ -1,11 +1,13 @@
-import React from "react";
-import PropTypes from "prop-types";
-import { Button, Card } from "react-bootstrap";
-import { Link } from "react-router-dom";
+/* eslint-disable require-jsdoc */
+import React from 'react';
+import PropTypes from 'prop-types';
+import {Button, Card} from 'react-bootstrap';
+import {Link} from 'react-router-dom';
 
-import "./movie-view.scss";
+import './movie-view.scss';
 export function MovieView(props) {
-  const { movie, onBackClick } = props;
+  // eslint-disable-next-line react/prop-types
+  const {movie, onBackClick} = props;
   return (
     <Card className="movie-view">
       <Card.Header id="card-header">{movie.Title}</Card.Header>

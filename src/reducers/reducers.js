@@ -1,6 +1,6 @@
 /* eslint-disable linebreak-style */
 /* eslint-disable require-jsdoc */
-/* eslint-disable linebreak-style */
+
 import {combineReducers} from 'redux';
 import {
   SET_FILTER,
