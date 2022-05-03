@@ -31,11 +31,16 @@
     "redux-devtools-extension": "^2.13.9"
   },
   "devDependencies": {
-    "@parcel/transformer-image": "^2.5.0",
-    "@parcel/transformer-sass": "^2.5.0",
+    "@parcel/transformer-image": "^2.4.1",
+    "@parcel/transformer-sass": "^2.4.1",
     "eslint": "^8.14.0",
     "eslint-config-google": "^0.14.0",
     "eslint-plugin-react": "^7.29.4",
-    "parcel": "^2.5.0"
+    "parcel": "^2.4.1"
+  },
+  "alias": {
+    "process": {
+      "global": "{}"
+    }
   }
 }
