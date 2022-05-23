@@ -7,7 +7,6 @@ import {Container, Form, Button, Card, CardGroup} from 'react-bootstrap';
 import axios from 'axios';
 import './login-view.scss';
 
-
 // eslint-disable-next-line react/prop-types
 export function LoginView({onLoggedIn}) {
   // useState method is called and assigned to destructured variables

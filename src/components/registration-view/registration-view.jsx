@@ -78,7 +78,7 @@ export function RegistrationView() {
     <Container>
       <Row className="mt-5">
         <Col md={12}>
-          <Form>
+          <Form id="registration">
             <h3>Please Register</h3>
             <p></p>
             <Form.Group controlId="formName" className="reg-form-inputs">
