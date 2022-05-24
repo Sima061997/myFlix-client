@@ -7,3 +7,5 @@ This app is a client side part of the myFlix app, which was  build using React, 
 And also users can make profiles and save the movies of their favorite to this app. 
 
 This is the link to this app https://luminous-pie-73d35b.netlify.app/
+
+ps: App is in Progress
