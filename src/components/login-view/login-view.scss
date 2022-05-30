@@ -1,8 +1,14 @@
 
-#login{
-  z-index: 1;
-    background-color:transparent;
-    font-size: 25px;
-    color: rgb(139, 138, 138);
-    font-family: 'Lucida Sans', Arial, sans-serif;
-  }
+#login {
+  background-color: rgb(53, 53, 53);
+  opacity: 0.5;
+  color: rgb(252, 250, 250);
+  font-family: "Lucida Sans", Arial, sans-serif;
+  margin-bottom: 5px;
+  font-size: 25px;
+  
+}
+
+.form-control:hover {
+  color: rgb(223, 31, 31);
+}

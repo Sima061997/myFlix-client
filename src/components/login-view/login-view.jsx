@@ -1,37 +1,38 @@
 /* eslint-disable require-jsdoc */
 
-import React, {useState} from 'react';
-import PropTypes from 'prop-types';
-import {Container, Form, Button, Card, CardGroup} from 'react-bootstrap';
+import React, { useState } from "react";
+import PropTypes from "prop-types";
+import { Container, Form, Button, Card, CardGroup } from "react-bootstrap";
+import { RegistrationView } from "../registration-view/registration-view";
 
-import axios from 'axios';
-import './login-view.scss';
+import axios from "axios";
+import "./login-view.scss";
 
 // eslint-disable-next-line react/prop-types
-export function LoginView({onLoggedIn}) {
+export function LoginView({ onLoggedIn }) {
   // useState method is called and assigned to destructured variables
-  const [username, setUsername] = useState('');
-  const [password, setPassword] = useState('');
+  const [username, setUsername] = useState("");
+  const [password, setPassword] = useState("");
 
   // Declare hook for each input
-  const [usernameErr, setUsernameErr] = useState('');
-  const [passwordErr, setPasswordErr] = useState('');
+  const [usernameErr, setUsernameErr] = useState("");
+  const [passwordErr, setPasswordErr] = useState("");
 
   // validate user inputs
   const validate = () => {
     let isReq = true;
     if (!username) {
-      setUsernameErr('Username Required');
+      setUsernameErr("Username Required");
       isReq = false;
     } else if (username.length < 2) {
-      setUsernameErr('Username must be  more than 2 letters');
+      setUsernameErr("Username must be  more than 2 letters");
       isReq = false;
     }
     if (!password) {
-      setPasswordErr('Password Required');
+      setPasswordErr("Password Required");
       isReq = false;
     } else if (password.length < 5) {
-      setPasswordErr('Password must be more than 5 characters');
+      setPasswordErr("Password must be more than 5 characters");
       isReq = false;
     }
     return isReq;
@@ -44,23 +45,23 @@ export function LoginView({onLoggedIn}) {
     if (isReq) {
       // Send a request to the server for authentication
       axios
-          .post('https://secret-falls-20485.herokuapp.com/login', {
-            Name: username,
-            Password: password,
-          })
-          .then((response) => {
+        .post("https://secret-falls-20485.herokuapp.com/login", {
+          Name: username,
+          Password: password,
+        })
+        .then((response) => {
           // server responds with an acceptance of JWT issued
-            const data = response.data;
-            onLoggedIn(data);
-          })
-          .catch((e) => {
-            console.log('no such user', e);
-          });
+          const data = response.data;
+          onLoggedIn(data);
+        })
+        .catch((e) => {
+          console.log("no such user", e);
+        });
     }
   };
 
   return (
-    <Container>
+    <Container style={{ margin: "10% auto" }}>
       <CardGroup>
         <Card id="login">
           <Card.Header>Please Login</Card.Header>
@@ -86,12 +87,12 @@ export function LoginView({onLoggedIn}) {
               />
               {passwordErr && <p>{passwordErr}</p>}
             </Form.Group>
-            <Button variant="primary" type="submit" onClick={handleSubmit}>
-              Login
-            </Button>
           </Form>
         </Card>
       </CardGroup>
+      <Button variant="primary" type="submit" onClick={handleSubmit}>
+        Login
+      </Button>
     </Container>
   );
 }

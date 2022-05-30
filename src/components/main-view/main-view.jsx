@@ -20,15 +20,7 @@ import { DirectorView } from "../director-view/director-view";
 import ProfileView from "../profile-view/profile-view";
 
 import { bindActionCreators } from "redux";
-import { createGlobalStyle } from "styled-components";
 import "./main-view.scss";
-
-const GlobalStyle = createGlobalStyle`
-body {
-background-image: url("https://freedesignfile.com/upload/2017/02/Movie-theater-background-with-red-seats-vector-05.jpg");
-background-size: cover;
-background-repeat: no-repeat;
-}`;
 
 export class MainView extends React.Component {
   componentDidMount() {
@@ -69,7 +61,7 @@ export class MainView extends React.Component {
     return (
       <Router>
         <NavigationBar user={user} />
-        <Container className="m-5">
+        <Container className=" m-0" fluid>
           <Row className="main-view justify-content-md-center h-100 ">
             <Route
               exact
@@ -77,14 +69,14 @@ export class MainView extends React.Component {
               render={() => {
                 if (!user) {
                   return (
-                    <GlobalStyle>
-                      <Col className="login-page">
-                        <LoginView
-                          movies={movies}
-                          onLoggedIn={(user) => this.onLoggedIn(user)}
-                        />
-                      </Col>
-                    </GlobalStyle>
+                    <div className="login-page" style={{ width: "100%" }}>
+                      <NavigationBar user={user} />
+                      <LoginView
+                        user={user}
+                        movies={movies}
+                        onLoggedIn={(user) => this.onLoggedIn(user)}
+                      />
+                    </div>
                   );
                 }
                 if (movies.length === 0) return <div className="main-view" />;
@@ -97,16 +89,14 @@ export class MainView extends React.Component {
               render={() => {
                 if (!user) {
                   return (
-                    <GlobalStyle>
-                      <Col lg={8} md={8}>
-                        <RegistrationView
-                          className="register-page"
-                          onRegistration={(newUser) =>
-                            this.onRegistration(newUser)
-                          }
-                        />
-                      </Col>
-                    </GlobalStyle>
+                    <div className="register-page">
+                       <NavigationBar user={user} />
+                      <RegistrationView
+                        onRegistration={(newUser) =>
+                          this.onRegistration(newUser)
+                        }
+                      />
+                    </div>
                   );
                 }
               }}
@@ -118,7 +108,7 @@ export class MainView extends React.Component {
                 if (!user) return null;
                 if (movies.length === 0) return <div className="main-view" />;
                 return (
-                  <Col md={8}>
+                  <Col md={6}>
                     <MovieView
                       movie={movies.find((m) => m._id === match.params.id)}
                       onBackClick={() => history.goBack()}
