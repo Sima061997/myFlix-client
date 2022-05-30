@@ -19,20 +19,50 @@
   margin: auto;
 }
 
+@media (max-width: 320px) {
+  .card {
+    display: block;
+  }
+}
+
+@media (min-width: 320px) {
+  .col-md-3 {
+    display: block;
+  }
+}
+
 #logo-image {
   width: 75px;
 }
 
-.navi-bar {
-  background-color: #35974d;
+.nav-bar {
+  background-color: #4d2def;
+}
+
+.navbar-nav {
+  padding-left: 5em;
 }
 
 #login {
-  background-color: #d3d6d3;
+  opacity: .5;
+  color: #fcfafa;
+  background-color: #353535;
+  margin-bottom: 5px;
+  font-family: Lucida Sans, Arial, sans-serif;
+  font-size: 25px;
+}
+
+.form-control:hover {
+  color: #df1f1f;
 }
 
 #registration {
-  background-color: #d3d6d3;
+  opacity: .5;
+  color: #8b8a8a;
+  background-color: #353535;
+  margin-bottom: 5px;
+  font-family: Trebuchet MS, Lucida Sans Unicode, Lucida Grande, Lucida Sans, Arial, sans-serif;
+  font-size: 25px;
 }
 
 .value {
@@ -63,6 +93,19 @@
 .fav-movies button.btn {
   margin: auto;
   display: block;
+}
+
+body {
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+
+.login-page, .register-page {
+  min-width: 100%;
+  min-height: 100%;
+  background: url("https://freedesignfile.com/upload/2017/02/Movie-theater-background-with-red-seats-vector-05.jpg") 0 0 / cover no-repeat;
+  position: fixed;
+  inset: 0;
 }
 
 /*# sourceMappingURL=index.e3f97e84.css.map */
